@@ -1,0 +1,69 @@
+﻿<Window x:Class="ProductCatalogWpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Каталог на продукти" Height="520" Width="760"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Секция за търсене -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,12">
+            <TextBlock Text="Търсене по име:" VerticalAlignment="Center" Margin="0,0,8,0" FontWeight="SemiBold"/>
+            <TextBox x:Name="txtSearch" Width="260" Height="28" VerticalContentAlignment="Center" Padding="4,0"/>
+            <Button x:Name="btnSearch" Content="Търси" Width="90" Height="28" Margin="8,0,0,0" Click="btnSearch_Click"/>
+            <Button x:Name="btnShowAll" Content="Покажи всички" Width="110" Height="28" Margin="8,0,0,0" Click="btnShowAll_Click"/>
+        </StackPanel>
+
+        <!-- Таблица с продукти -->
+        <DataGrid x:Name="gridProducts"
+                  Grid.Row="1"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  SelectionMode="Single"
+                  CanUserAddRows="False"
+                  SelectionChanged="gridProducts_SelectionChanged"
+                  Margin="0,0,0,12">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="70"/>
+                <DataGridTextColumn Header="Име на продукт" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="Цена (€)" Binding="{Binding Price, StringFormat=F2}" Width="140"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Форма за добавяне и редактиране -->
+        <Border Grid.Row="2" BorderBrush="#CCCCCC" BorderThickness="1" CornerRadius="4" Padding="12" Margin="0,0,0,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Margin="0,0,12,0">
+                    <TextBlock Text="Име на продукта:" Margin="0,0,0,4"/>
+                    <TextBox x:Name="txtName" Height="28" VerticalContentAlignment="Center" Padding="4,0"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Margin="0,0,12,0">
+                    <TextBlock Text="Цена:" Margin="0,0,0,4"/>
+                    <TextBox x:Name="txtPrice" Height="28" VerticalContentAlignment="Center" Padding="4,0"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Bottom">
+                    <Button x:Name="btnAdd" Content="Добави" Width="85" Height="28" Margin="0,0,6,0" Click="btnAdd_Click"/>
+                    <Button x:Name="btnUpdate" Content="Запиши" Width="85" Height="28" Margin="0,0,6,0" Click="btnUpdate_Click"/>
+                    <Button x:Name="btnDelete" Content="Изтрий" Width="85" Height="28" Margin="0,0,6,0" Click="btnDelete_Click"/>
+                    <Button x:Name="btnClear" Content="Изчисти" Width="75" Height="28" Click="btnClear_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Лента за състоянието -->
+        <TextBlock x:Name="txtStatus" Grid.Row="3" FontWeight="SemiBold" Foreground="#2E7D32" Text="Готовност."/>
+    </Grid>
+</Window>
